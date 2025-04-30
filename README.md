@@ -56,7 +56,3 @@ This project was developed to **understand, visualize, and compare** different c
 - [Ahmad Dwieb]
 - [Ahmad Elasas]
 - [Abdullah]
-
----
-
-## Feel free to fork, star, or contribute!
