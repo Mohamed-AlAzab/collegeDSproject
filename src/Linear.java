@@ -1,50 +1,59 @@
-class Linear {
-    private String[] hashTable;
-    private int tableSize;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    public Linear(int size) {
-        this.tableSize = size;
-        this.hashTable = new String[tableSize];
-    }
+public class LinearHashing {
 
-    private int hashFunction(String key) {
-        int hashValue = 0;
-        for (char c : key.toCharArray()) {
-            hashValue += (int) c; 
+    static final int TABLE_SIZE = 52;
+    static Character[] hashTable = new Character[TABLE_SIZE];
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Character> character = new ArrayList<>();
+
+        System.out.println("Enterrrrrrrrrrrrrrrrrrrrr : ");
+        String input = scanner.nextLine();
+
+//        for (char c : input.toCharArray()) {
+//            if (Character.isLetter(c)) {
+//                insert(c);
+//            }
+//        }
+
+        for (char c : input.toCharArray()) {
+            if (Character.isLetter(c)) {
+                character.add(c);
+            }
         }
-        return hashValue % tableSize; 
+
+        for (char c : character) {
+            insert(c);
+        }
+        printHashTable();
     }
 
-    public void insert(String key) {
-        int index = hashFunction(key);
+    public static void insert(char c) {
+        int hash = hashFunction(c);
+        int index = hash % TABLE_SIZE;
 
         while (hashTable[index] != null) {
-            index = (index + 1) % tableSize; 
+            index = (index + 1) % TABLE_SIZE;
         }
 
-        hashTable[index] = key; 
+        hashTable[index] = c;
     }
 
-    public boolean search(String key) {
-        int index = hashFunction(key);
-
-        while (hashTable[index] != null) {
-            if (hashTable[index].equals(key)) {
-                return true; 
-            }
-            index = (index + 1) % tableSize; 
+    public static int hashFunction(char c) {
+        if (Character.isLowerCase(c)) {
+            return c - 'a';
+        } else {
+            return (c - 'A') + 26;
         }
-
-        return false; 
     }
 
-    public void display() {
-        for (int i = 0; i < tableSize; i++) {
-            if (hashTable[i] != null) {
-                System.out.println("Index " + i + ": " + hashTable[i]);
-            } else {
-                System.out.println("Index " + i + ": null");
-            }
+    public static void printHashTable() {
+        System.out.println("Hash table :");
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            System.out.println(i + ": " + (hashTable[i] != null ? hashTable[i] : "null"));
         }
     }
 }
