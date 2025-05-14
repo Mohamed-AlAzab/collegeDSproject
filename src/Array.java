@@ -2,15 +2,13 @@ import java.util.Scanner;
 
 public class Array {
     public Node[] ptr;
-    private int lenght;
+    private int length;
     private int size;
 
-    public Array(int arraysize) {
-        ptr = new Node[arraysize];
-    }
+    public Array(int arraySize) { ptr = new Node[arraySize]; }
 
-    public void insert(int index, int newitem) {
-        Node newnode = new Node(newitem);
+    public void insert(int index, int newItem) {
+        Node newnode = new Node(newItem);
         Node temp = ptr[index];
         if (ptr[index] == null) {
             ptr[index] = newnode;
@@ -23,8 +21,8 @@ public class Array {
         }
     }
 
-    public void insert(int index, String newitem) {
-        Node newnode = new Node(newitem);
+    public void insert(int index, String newItem) {
+        Node newnode = new Node(newItem);
         Node temp = ptr[index];
         if (ptr[index] == null) {
             ptr[index] = newnode;

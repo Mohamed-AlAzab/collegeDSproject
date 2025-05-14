@@ -44,13 +44,9 @@ public class DoubleHash {
         return (int) hash;
     }
 
-    public int primaryHash(String s) {
-        return hash(s) % capacity;
-    }
+    public int primaryHash(String s) { return hash(s) % capacity; }
 
-    public int secondaryHash(String s) {
-        return 97 - (hash(s) % 97);
-    }
+    public int secondaryHash(String s) { return 97 - (hash(s) % 97); }
 
     public void insert(String word) {
         word = word.toLowerCase();
@@ -95,18 +91,14 @@ public class DoubleHash {
                 String[] words = line.trim().toLowerCase().split("\\s+");
 
                 for (String word : words) {
-                    if (!word.isEmpty()) {
-                        insert(word);
-                    }
+                    if (!word.isEmpty()) { insert(word); }
                 }
             }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
-        }
+        } catch (IOException e) { System.err.println("Error reading file: " + e.getMessage()); }
     }
 
     public void printTable() {
-        System.out.println("\nDouble Hashing Table:");
+        System.out.println("\n--- Double Hashing Table ---");
         for (int i = 0; i < capacity; i++) {
             String status = (table[i] == null) ? "empty" : table[i].word;
             System.out.printf("%d: %s (collisions at this index: %d)\n", i, status, collisionMap[i]);

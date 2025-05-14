@@ -10,16 +10,15 @@ public class OpenHash {
         this.size =size;
     }
 
-
     public OpenHash() {
         array = new Array(10);
         this.size =10;
 
     }
 
-    public void insert(int newitem) {
-        int index = newitem % size;
-        array.insert(index, newitem);
+    public void insert(int newItem) {
+        int index = newItem % size;
+        array.insert(index, newItem);
     }
 
     public void insert(String newItem) {
