@@ -67,6 +67,12 @@ public class Main {
     public static void LinearHashFunction(Scanner scanner){
         System.out.print("Write the table size: ");
         int tableSize = Integer.parseInt(scanner.nextLine());
+        LinearHashing doubleHash = new LinearHashing(tableSize);
+
+        doubleHash.loadFromFile("words.txt");
+        LinearHashing.printTable();
+
+        System.out.println("\nTotal Collisions: " + LinearHashing.getCollisionCount());
     }
 
     public static void OpenHashFunction(Scanner scanner){
