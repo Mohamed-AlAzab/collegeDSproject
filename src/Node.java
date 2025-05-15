@@ -1,20 +1,15 @@
 public class Node {
     int Data ;
     Node Next;
-    String StrData;
-
-    public Node() {
-        Data = 0;
-        Next = null;
-    }
+    String word;
 
     public Node(int data) {
         Data = data;
-        Next = null;
+        this.Next = null;
     }
 
-    public Node(String strData) {
-        StrData = strData;
-        Next = null;
+    Node(String word) {
+        this.word = word;
+        this.Next = null;
     }
 }
