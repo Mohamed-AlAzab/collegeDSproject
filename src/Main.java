@@ -27,23 +27,24 @@ public class Main {
         int hashType = Integer.parseInt(scanner.nextLine());
         switch (hashType){
             case 1:
-                DoubleHashFunction();
+                DoubleHashFunction(scanner);
                 break;
             case 2:
-                QuadraticHashFunction();
+                QuadraticHashFunction(scanner);
                 break;
             case 3:
-                LinearHashFunction();
+                LinearHashFunction(scanner);
                 break;
             case 4:
-                OpenHashFunction();
+                OpenHashFunction(scanner);
                 break;
             default:
                 System.out.println("Hash type not found!");
         }
     }
-    public static void QuadraticHashFunction(){
-        int tableSize = 5;
+    public static void QuadraticHashFunction(Scanner scanner){
+        System.out.print("Write the table size: ");
+        int tableSize = Integer.parseInt(scanner.nextLine());
         QuadraticProbing quadraticProbing = new QuadraticProbing(tableSize);
 
         quadraticProbing.loadFromFile("words.txt");
@@ -52,8 +53,9 @@ public class Main {
         System.out.println("\nTotal Collisions: " + quadraticProbing.getCollisionCount());
     }
 
-    public static void DoubleHashFunction(){
-        int tableSize = 5;
+    public static void DoubleHashFunction(Scanner scanner){
+        System.out.print("Write the table size: ");
+        int tableSize = Integer.parseInt(scanner.nextLine());
         DoubleHash doubleHash = new DoubleHash(tableSize);
 
         doubleHash.loadFromFile("words.txt");
@@ -62,7 +64,13 @@ public class Main {
         System.out.println("\nTotal Collisions: " + doubleHash.getCollisionCount());
     }
 
-    public static void LinearHashFunction(){}
+    public static void LinearHashFunction(Scanner scanner){
+        System.out.print("Write the table size: ");
+        int tableSize = Integer.parseInt(scanner.nextLine());
+    }
 
-    public static void OpenHashFunction(){}
+    public static void OpenHashFunction(Scanner scanner){
+        System.out.print("Write the table size: ");
+        int tableSize = Integer.parseInt(scanner.nextLine());
+    }
 }
