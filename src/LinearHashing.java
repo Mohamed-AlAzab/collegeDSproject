@@ -3,67 +3,78 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class LinearHashing {
-    static int tableSize;
-    static String[] linearTable;
-    static int[] linearCollisions;
-    static int totalCollisions = 0;
+    private int tableSize;
+    private String[] linearTable;
+    private int[] linearCollisions;
+    private int totalCollisions;
 
     public LinearHashing(int size) {
-        tableSize = size;
-        linearTable = new String[tableSize];
-        linearCollisions = new int[tableSize];
-        totalCollisions = 0;
+        this.tableSize = size;
+        this.linearTable = new String[tableSize];
+        this.linearCollisions = new int[tableSize];
+        this.totalCollisions = 0;
     }
 
-    public static int hashFunction(String s) {
-        int hash = 0;
+    public int hashFunction(String s) {
+        int hash = 7;
         for (int i = 0; i < s.length(); i++) {
-            hash += s.charAt(i);
+            hash = hash * 31 + s.charAt(i);
         }
-        return hash % tableSize;
+        return Math.abs(hash % tableSize);
     }
 
-    public static void insertLinear(String word, int hash) {
+    public void insertLinear(String word) {
+        int hash = hashFunction(word);
         int i = 0;
         int idx = (hash + i) % tableSize;
         int collisions = 0;
+
         while (linearTable[idx] != null) {
+            if (linearTable[idx].equals(word)) {
+                System.out.println("[Duplicate] Word '" + word + "' already exists at index: " + idx);
+                return;
+            }
+
             if (i >= tableSize) {
                 System.out.println("Table is full! Could not insert: " + word);
                 return;
             }
-            System.out.println("[Collision] At index: " + idx + ", word: " + word + ", moving to: " + ((hash + (i + 1)) % tableSize));
+
             collisions++;
             i++;
             idx = (hash + i) % tableSize;
         }
+
         linearTable[idx] = word;
-        linearCollisions[hash] += collisions;
+        linearCollisions[idx] = collisions;
         totalCollisions += collisions;
-        System.out.println("[Linear] Inserted at: " + idx);
+        System.out.println("[Linear] Inserted '" + word + "' at: " + idx + " (Collisions: " + collisions + ")");
     }
 
     public void loadFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
-
             while ((line = br.readLine()) != null) {
                 String[] words = line.trim().toLowerCase().split("\\s+");
-
                 for (String word : words) {
-                    if (!word.isEmpty()) { insertLinear(word, hashFunction(word)); }
+                    if (!word.isEmpty()) {
+                        insertLinear(word);
+                    }
                 }
             }
-        } catch (IOException e) { System.err.println("Error reading file: " + e.getMessage()); }
-    }
-
-    public static void printTable() {
-        for (int i = 0; i < tableSize; i++) {
-            String val = linearTable[i];
-            String col = linearCollisions[i] > 0 ? " [Collisions: " + linearCollisions[i] + "]" : "";
-            System.out.println(i + ": " + (val != null ? val : "null") + col);
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
         }
     }
 
-    public static int getCollisionCount() { return totalCollisions; }
+    public void printTable() {
+        System.out.println("\nLinear Hashing Table:");
+        for (int i = 0; i < tableSize; i++) {
+            String val = linearTable[i];
+            String col = linearCollisions[i] > 0 ? " [Collisions: " + linearCollisions[i] + "]" : "";
+            System.out.println("    " + i + ": " + (val != null ? val : "null") + col);
+        }
+    }
+
+    public int getCollisionCount() { return totalCollisions; }
 }

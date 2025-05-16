@@ -79,9 +79,9 @@ public class QuadraticProbing {
     }
 
     public void printTable() {
-        System.out.println("\n--- Quadratic Probing Hash Table ---");
+        System.out.println("\nQuadratic Probing Hash Table:");
         for (int i = 0; i < tableSize; i++) {
-            System.out.printf("Index %d: %s\n", i, occupied[i] ? hashTable[i] : "empty");
+            System.out.printf("    Index %d: %s\n", i, occupied[i] ? hashTable[i] : "empty");
         }
     }
 

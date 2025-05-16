@@ -98,10 +98,10 @@ public class DoubleHash {
     }
 
     public void printTable() {
-        System.out.println("\n--- Double Hashing Table ---");
+        System.out.println("\nDouble Hashing Table:");
         for (int i = 0; i < capacity; i++) {
             String status = (table[i] == null) ? "empty" : table[i].word;
-            System.out.printf("%d: %s (collisions at this index: %d)\n", i, status, collisionMap[i]);
+            System.out.printf("    %d: %s (collisions at this index: %d)\n", i, status, collisionMap[i]);
         }
     }
 

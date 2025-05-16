@@ -52,9 +52,10 @@ public class OpenHash {
     }
 
     public void printTable() {
+        System.out.println("\nOpen Hashing Table:");
         for (int i = 0; i < size; i++) {
             if (hashTable[i] != null) {
-                System.out.print("Index " + i + " [collision] " + collisionCount[i] + " : ");
+                System.out.print("    Index " + i + " [collision] " + collisionCount[i] + " : ");
                 Node current = hashTable[i];
 
                 while (current != null) {

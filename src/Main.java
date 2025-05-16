@@ -49,6 +49,7 @@ public class Main {
         QuadraticProbing quadraticProbing = new QuadraticProbing(tableSize);
 
         quadraticProbing.loadFromFile("words.txt");
+        System.out.println("Table:");
         quadraticProbing.printTable();
 
         System.out.println("\nTotal Collisions: " + quadraticProbing.getCollisionCount());
@@ -60,6 +61,7 @@ public class Main {
         DoubleHash doubleHash = new DoubleHash(tableSize);
 
         doubleHash.loadFromFile("words.txt");
+        System.out.println("Table:");
         doubleHash.printTable();
 
         System.out.println("\nTotal Collisions: " + doubleHash.getCollisionCount());
@@ -68,12 +70,13 @@ public class Main {
     public static void LinearHashFunction(Scanner scanner){
         System.out.print("Write the table size: ");
         int tableSize = Integer.parseInt(scanner.nextLine());
-        LinearHashing doubleHash = new LinearHashing(tableSize);
+        LinearHashing linearHashing = new LinearHashing(tableSize);
 
-        doubleHash.loadFromFile("words.txt");
-        LinearHashing.printTable();
+        linearHashing.loadFromFile("words.txt");
+        System.out.println("Table:");
+        linearHashing.printTable();
 
-        System.out.println("\nTotal Collisions: " + LinearHashing.getCollisionCount());
+        System.out.println("\nTotal Collisions: " + linearHashing.getCollisionCount());
     }
 
     public static void OpenHashFunction(Scanner scanner){
