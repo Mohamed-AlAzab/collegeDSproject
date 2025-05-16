@@ -42,6 +42,7 @@ public class Main {
                 System.out.println("Hash type not found!");
         }
     }
+
     public static void QuadraticHashFunction(Scanner scanner){
         System.out.print("Write the table size: ");
         int tableSize = Integer.parseInt(scanner.nextLine());
@@ -78,5 +79,9 @@ public class Main {
     public static void OpenHashFunction(Scanner scanner){
         System.out.print("Write the table size: ");
         int tableSize = Integer.parseInt(scanner.nextLine());
+        OpenHash openHash = new OpenHash(tableSize);
+
+        openHash.loadFromFile("words.txt");
+        openHash.printTable();
     }
 }

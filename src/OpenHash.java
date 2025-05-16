@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class OpenHash {
-
     private Node[] hashTable;
     private int size;
     private int[] collisionCount;
@@ -17,21 +16,6 @@ public class OpenHash {
         this.collisionCount = new int[size];
     }
 
-    public void Filereader(String filename) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
-        String line;
-
-        while ((line = reader.readLine()) != null) {
-            String[] words = line.trim().toLowerCase().split("\\s+");
-            for (String word : words) {
-                if (!word.isEmpty()) {
-                    insert(word);
-                }
-            }
-        }
-        reader.close();
-    }
-
     private int hashFunction(String word) {
         int h = 0;
         for (int i = 0; i < word.length(); i++) {
@@ -40,11 +24,9 @@ public class OpenHash {
         return h;
     }
 
-
     public void insert(String word) {
-        word = word.toLowerCase();
-        int hashvalue = hashFunction(word);
-        int index = Math.abs(hashvalue) % size;
+        int hashValue = hashFunction(word);
+        int index = Math.abs(hashValue) % size;
 
         Node newnode = new Node(word);
 
@@ -55,26 +37,32 @@ public class OpenHash {
         hashTable[index] = newnode;
     }
 
-    public void display() {
+    public void loadFromFile(String filename) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] words = line.trim().toLowerCase().split("\\s+");
+
+                for (String word : words) {
+                    if (!word.isEmpty()) { insert(word.toLowerCase()); }
+                }
+            }
+        } catch (IOException e) { System.err.println("Error reading file: " + e.getMessage()); }
+    }
+
+    public void printTable() {
         for (int i = 0; i < size; i++) {
             if (hashTable[i] != null) {
-                System.out.print("Index " + i + " [collision] "+collisionCount[i]+":");
-//                System.out.print("Inde
-
+                System.out.print("Index " + i + " [collision] " + collisionCount[i] + " : ");
                 Node current = hashTable[i];
 
                 while (current != null) {
-                    System.out.print(current.word);
-//                    System.out.print(current.Data);
-                    if (current.Next != null) {
-                        System.out.print(" -> ");
-                    }
+                    System.out.print(" -> " + current.word);
                     current = current.Next;
                 }
                 System.out.println(" -> null");
             }
         }
     }
-
-
 }

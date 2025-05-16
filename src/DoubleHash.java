@@ -84,10 +84,10 @@ public class DoubleHash {
     }
 
     public void loadFromFile(String filename) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             String line;
 
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 String[] words = line.trim().toLowerCase().split("\\s+");
 
                 for (String word : words) {
