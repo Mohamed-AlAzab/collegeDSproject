@@ -1,24 +1,32 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-public class Linear {
+
+public class LinearHashing {
     private int size;
-    private String[]hashtable;
+    private String[] hashtable;
     final int m = (int) (Math.pow(10, 9) + 9);
     private HashMap<String, ArrayList<Integer>> collisionPlaces = new HashMap<>();
     private HashMap<String, Integer> collisionTimes = new HashMap<>();
-    public Linear(int capacity){
-        size=capacity;
-        hashtable=new String[size];
+
+    public LinearHashing(int capacity) {
+        size = capacity;
+        hashtable = new String[size];
     }
-    public  Linear(ArrayList<String>word){
-        size=word.size();
-        hashtable=new String[size];
+
+    public LinearHashing(ArrayList<String> word) {
+        size = word.size();
+        hashtable = new String[size];
     }
+
     private int Technique(char c, int i, int n) {
         return (int) ((c * Math.pow(31, (n - 1 - i))) % m);
     }
-    public void insert(ArrayList<String>strings){
-        for(String word:strings){
+
+    public void insert(ArrayList<String> strings) {
+        for (String word : strings) {
             int tech = 0;
             for (int j = 0; j < word.length(); j++) {
                 char c = word.charAt(j);
@@ -31,7 +39,6 @@ public class Linear {
             while (i < size) {
                 int index = (tech + i) % size;
                 if (i > 0 && index == tech) {
-                    //System.out.println("Cannot insert element ❌: " + word + " (Returned to starting index)");
                     break;
                 }
                 if (hashtable[index] == null) {
@@ -40,7 +47,7 @@ public class Linear {
                     break;
                 } else {
                     collisions++;
-                    places.add(index); // تسجّل موقع التصادم
+                    places.add(index);
                 }
                 i++;
             }
@@ -52,23 +59,33 @@ public class Linear {
             }
         }
     }
-    private void dispalyPalces(){
-        for(String word: collisionPlaces.keySet()){
-            if(collisionTimes.get(word)!=0) {
-                System.out.print("The Word: " + word);
-                System.out.println(collisionPlaces.get(word));
-                System.out.println("Number of collisions"+collisionTimes.get(word));
+
+    public void loadFromFile(String filename) {
+        ArrayList<String> words = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                words.add(line.trim());
             }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + filename);
         }
+        insert(words);
     }
-    private void dispalyHashTable(){
+
+    public void printTable() {
         System.out.println("Array content📦");
-        for (int i = 0; i < size; i++)  {
+        for (int i = 0; i < size; i++) {
             System.out.println(i + ": " + (hashtable[i] == null ? "Empty" : hashtable[i]));
         }
     }
-    public void display(){
-        dispalyPalces();
-        dispalyHashTable();
+
+    public int getCollisionCount() {
+        int total = 0;
+        for (int count : collisionTimes.values()) {
+            total += count;
+        }
+        return total;
     }
 }
+
