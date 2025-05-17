@@ -4,19 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LinearHashing {
+public class Linear {
     private int size;
     private String[] hashtable;
     final int m = (int) (Math.pow(10, 9) + 9);
     private HashMap<String, ArrayList<Integer>> collisionPlaces = new HashMap<>();
     private HashMap<String, Integer> collisionTimes = new HashMap<>();
 
-    public LinearHashing(int capacity) {
+    public Linear(int capacity) {
         size = capacity;
         hashtable = new String[size];
     }
 
-    public LinearHashing(ArrayList<String> word) {
+    public Linear(ArrayList<String> word) {
         size = word.size();
         hashtable = new String[size];
     }
@@ -74,10 +74,34 @@ public class LinearHashing {
     }
 
     public void printTable() {
-        System.out.println("Array content📦");
+        System.out.println("\nLinear:");
+        System.out.println("+-------------+----------------+---------------+---------------------+");
+        System.out.println("| Table Index |  Stored Word   | Original Hash | Collisions at Index |");
+        System.out.println("+-------------+----------------+---------------+---------------------+");
         for (int i = 0; i < size; i++) {
-            System.out.println(i + ": " + (hashtable[i] == null ? "Empty" : hashtable[i]));
+            String word = hashtable[i];
+            String displayWord = (word == null) ? "Empty" : word;
+            String originalHash = "";
+            int collisionsAtIndex = 0;
+            if (word != null) {
+                // cal original hash
+                int tech = 0;
+                for (int j = 0; j < word.length(); j++) {
+                    char c = word.charAt(j);
+                    tech += Technique(c, j, word.length());
+                }
+                originalHash = String.valueOf(tech % size);
+                // num of coli in this place
+                collisionsAtIndex = 0;
+                for (ArrayList<Integer> places : collisionPlaces.values()) {
+                    for (int idx : places) {
+                        if (idx == i) collisionsAtIndex++;
+                    }
+                }
+            }
+            System.out.printf("| %11d | %14s | %13s | %19d |\n", i, displayWord, originalHash, collisionsAtIndex);
         }
+        System.out.println("+-------------+----------------+---------------+---------------------+");
     }
 
     public int getCollisionCount() {
@@ -88,4 +112,3 @@ public class LinearHashing {
         return total;
     }
 }
-
