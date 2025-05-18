@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Linear {
+public class LinearHashing {
     private int size; 
     private String[] hashtable; 
     final int m = (int) (Math.pow(10, 9) + 9); // Large prime number for less collision
@@ -12,20 +12,18 @@ public class Linear {
     // Stores number of collisions for each word
     private HashMap<String, Integer> collisionTimes = new HashMap<>();
 
-    public Linear(int capacity) {
+    public LinearHashing(int capacity) {
         size = capacity;
         hashtable = new String[size];
     }
 
     // Constructor that sets size based on input word list
-    public Linear(ArrayList<String> word) {
+    public LinearHashing(ArrayList<String> word) {
         size = word.size();
         hashtable = new String[size];
     }
 
-    private int Technique(char c, int i, int n) {
-        return (int) ((c * Math.pow(31, (n - 1 - i))) % m);
-    }
+    private int Technique(char c, int i, int n) { return (int) ((c * Math.pow(31, (n - 1 - i))) % m); }
 
     // Insert a list of strings into the hash table 
     public void insert(ArrayList<String> strings) {
@@ -60,17 +58,17 @@ public class Linear {
             collisionTimes.put(word, collisions); 
 
             if (!inserted) {
-                System.out.println("The table is full❌ or infinite loop occured at word: " + word);
+                System.out.println("The table is full ❌ or infinite loop occurred at word: " + word);
             }
         }
     }
 
     public void loadFromFile(String filename) {
         ArrayList<String> words = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             String line;
-            while ((line = br.readLine()) != null) {
-                words.add(line.trim());
+            while ((line = bufferedReader.readLine()) != null) {
+                words.add(line.trim().toLowerCase());
             }
         } catch (IOException e) {
             System.out.println("Error reading file: " + filename);
@@ -97,7 +95,6 @@ public class Linear {
                 }
                 originalHash = String.valueOf(tech % size);
                 // Count how many collisions in this index 
-                collisionsAtIndex = 0;
                 for (ArrayList<Integer> places : collisionPlaces.values()) {
                     for (int idx : places) {
                         if (idx == i) collisionsAtIndex++;

@@ -11,8 +11,6 @@ public class Main {
         System.out.println("|  #    # #   #     # #    #    #     # #   # #       |");
         System.out.println("|  #    # #   # ####  #    #    #     # #   # #       |");
         System.out.println("=======================================================");
-        System.out.println();
-        System.out.println("=========================");
         System.out.println("| 1 | Double Hashing    |");
         System.out.println("=========================");
         System.out.println("| 2 | Quadratic Hashing |");
@@ -21,7 +19,6 @@ public class Main {
         System.out.println("=========================");
         System.out.println("| 4 | Open Hashing      |");
         System.out.println("=========================");
-        System.out.println();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Choose the hashing type(1 - 2 - 3 - 4): ");
         int hashType = Integer.parseInt(scanner.nextLine());
@@ -73,7 +70,7 @@ public class Main {
         LinearHashing linearHashing = new LinearHashing(tableSize);
 
         linearHashing.loadFromFile("words.txt");
-        System.out.println("Table:");
+        //System.out.println("Table:");
         linearHashing.printTable();
 
         System.out.println("\nTotal Collisions: " + linearHashing.getCollisionCount());
