@@ -1,14 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class OpenHash {
     private Node[] hashTable;
     private int size;
     private int[] collisionCount;
-    private int m = 1000000009;
-    private int b = 31;
 
     OpenHash(int size) {
         this.size = size;
@@ -16,16 +13,15 @@ public class OpenHash {
         this.collisionCount = new int[size];
     }
 
-    private int hashFunction(String word) {
-        int h = 0;
-        for (int i = 0; i < word.length(); i++) {
-            h = (h * b + word.charAt(i)) % m;
-        }
-        return h;
+    private int hash(String word) {
+        int hash = 0;
+        for (int i = 0; i < word.length(); i++)
+            hash = (hash * 31 + word.charAt(i)) % 1000000009;
+        return hash;
     }
 
     public void insert(String word) {
-        int hashValue = hashFunction(word);
+        int hashValue = hash(word);
         int index = Math.abs(hashValue) % size;
 
         Node newnode = new Node(word);

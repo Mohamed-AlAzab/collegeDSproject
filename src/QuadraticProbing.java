@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
 public class QuadraticProbing {
@@ -59,10 +58,6 @@ public class QuadraticProbing {
                 System.out.printf("Inserted '%s' at index %d (probes: %d)\n", word, index, probes);
                 collisionCount += probes;
                 return;
-            } else if (hashTable[index].equals(word)) {
-                System.out.printf("Word '%s' already exists at index %d (probes: %d)\n", word, index, probes);
-                collisionCount += probes;
-                return;
             } else {
                 System.out.printf("Collision at index %d (probe %d)\n", index, probes);
             }
@@ -86,13 +81,17 @@ public class QuadraticProbing {
     }
 
     public void loadFromFile(String filename) {
-        try (Scanner scanner = new Scanner(new File(filename))) {
-            while (scanner.hasNext()) {
-                insert(scanner.next().toLowerCase());
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] words = line.trim().toLowerCase().split("\\s+");
+
+                for (String word : words) {
+                    if (!word.isEmpty()) { insert(word); }
+                }
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + filename);
-        }
+        } catch (IOException e) { System.err.println("Error reading file: " + e.getMessage()); }
     }
 
     public int getCollisionCount() { return collisionCount; }

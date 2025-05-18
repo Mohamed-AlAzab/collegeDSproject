@@ -1,1 +1,5 @@
-apple banana cat dog elephant fish giraffe hat igloo jaguar
+apple
+banana
+cat dog elephant
+fish giraffe hat
+igloo jaguar
