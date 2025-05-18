@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 
-public class DoubleHash {
+public class DoubleHashing {
     private Entry[] table;
     private int[] collisionMap;
     private int size;
@@ -13,7 +13,7 @@ public class DoubleHash {
     private final int B = 31;
     private final int M = 1000000009;
 
-    public DoubleHash(int capacity) {
+    public DoubleHashing(int capacity) {
         this.capacity = capacity;
         this.table = new Entry[capacity];
         this.collisionMap = new int[capacity];
@@ -83,11 +83,6 @@ public class DoubleHash {
                 return;
             }
 
-            if (table[index].word.equals(word)) {
-                System.out.printf("Skipped duplicate '%s'\n", word);
-                return;
-            }
-
             collisionMap[index]++;
             wordCollisions++;
         }
@@ -123,7 +118,7 @@ public class DoubleHash {
             if(!Objects.equals(word, "Empty"))
                 System.out.printf("| %11d | %14s | %13s | %19d |\n", i, word, hashValue, collisions);
         }
-        System.out.println("+-------------+----------------+---------------+---------------------+");
+        System.out.print("+-------------+----------------+---------------+---------------------+");
     }
 
     public int getCollisionCount() {

@@ -2,12 +2,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class OpenHash {
+public class OpenHashing {
     private Node[] hashTable;
     private int size;
     private int[] collisionCount;
 
-    OpenHash(int size) {
+    OpenHashing(int size) {
         this.size = size;
         this.hashTable = new Node[size];
         this.collisionCount = new int[size];

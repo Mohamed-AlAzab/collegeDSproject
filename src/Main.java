@@ -22,51 +22,50 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Choose the hashing type(1 - 2 - 3 - 4): ");
         int hashType = Integer.parseInt(scanner.nextLine());
+        System.out.print("Write the table size: ");
+        int tableSize = Integer.parseInt(scanner.nextLine());
+        if(tableSize <= 1){
+            System.out.println("Wrong table size.");
+            return;
+        }
         switch (hashType){
             case 1:
-                DoubleHashFunction(scanner);
+                DoubleHashFunction(tableSize);
                 break;
             case 2:
-                QuadraticHashFunction(scanner);
+                QuadraticHashFunction(tableSize);
                 break;
             case 3:
-                LinearHashFunction(scanner);
+                LinearHashFunction(tableSize);
                 break;
             case 4:
-                OpenHashFunction(scanner);
+                OpenHashFunction(tableSize);
                 break;
             default:
                 System.out.println("Hash type not found!");
         }
     }
 
-    public static void QuadraticHashFunction(Scanner scanner){
-        System.out.print("Write the table size: ");
-        int tableSize = Integer.parseInt(scanner.nextLine());
-        QuadraticProbing quadraticProbing = new QuadraticProbing(tableSize);
-
-        quadraticProbing.loadFromFile("words.txt");
-        System.out.println("Table:");
-        quadraticProbing.printTable();
-
-        System.out.println("\nTotal Collisions: " + quadraticProbing.getCollisionCount());
-    }
-
-    public static void DoubleHashFunction(Scanner scanner){
-        System.out.print("Write the table size: ");
-        int tableSize = Integer.parseInt(scanner.nextLine());
-        DoubleHash doubleHash = new DoubleHash(tableSize);
+    public static void DoubleHashFunction(int tableSize){
+        DoubleHashing doubleHash = new DoubleHashing(tableSize);
 
         doubleHash.loadFromFile("words.txt");
-        System.out.println("Table:");
         doubleHash.printTable();
 
         System.out.println("\nTotal Collisions: " + doubleHash.getCollisionCount());
     }
 
-    public static void LinearHashFunction(Scanner scanner){
-        System.out.print("Write the table size: ");
-        int tableSize = Integer.parseInt(scanner.nextLine());
+    public static void QuadraticHashFunction(int tableSize){
+
+        QuadraticHashing quadraticProbing = new QuadraticHashing(tableSize);
+
+        quadraticProbing.loadFromFile("words.txt");
+        quadraticProbing.printTable();
+
+        System.out.println("\nTotal Collisions: " + quadraticProbing.getCollisionCount());
+    }
+
+    public static void LinearHashFunction(int tableSize){
         LinearHashing linearHashing = new LinearHashing(tableSize);
 
         linearHashing.loadFromFile("words.txt");
@@ -76,10 +75,8 @@ public class Main {
         System.out.println("\nTotal Collisions: " + linearHashing.getCollisionCount());
     }
 
-    public static void OpenHashFunction(Scanner scanner){
-        System.out.print("Write the table size: ");
-        int tableSize = Integer.parseInt(scanner.nextLine());
-        OpenHash openHash = new OpenHash(tableSize);
+    public static void OpenHashFunction(int tableSize){
+        OpenHashing openHash = new OpenHashing(tableSize);
 
         openHash.loadFromFile("words.txt");
         openHash.printTable();

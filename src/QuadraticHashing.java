@@ -1,15 +1,16 @@
 import java.io.*;
-import java.util.Scanner;
 
-public class QuadraticProbing {
+public class QuadraticHashing {
     private String[] hashTable;
+    private int[] collisionCounts;
     private boolean[] occupied;
     private int tableSize;
     private int collisionCount;
 
-    public QuadraticProbing(int size) {
+    public QuadraticHashing(int size) {
         this.tableSize = size;
         this.hashTable = new String[tableSize];
+        this.collisionCounts = new int[tableSize];
         this.occupied = new boolean[tableSize];
         this.collisionCount = 0;
     }
@@ -47,19 +48,15 @@ public class QuadraticProbing {
         int index;
         int probes = 0;
 
-        System.out.printf("Trying to insert '%s'. Primary index: %d\n", word, primaryIndex);
-
         while (probes < tableSize) {
             index = (primaryIndex + probes + probes * probes) % tableSize;
 
             if (!occupied[index]) {
                 hashTable[index] = word;
                 occupied[index] = true;
-                System.out.printf("Inserted '%s' at index %d (probes: %d)\n", word, index, probes);
+                collisionCounts[index] = probes; // ← store the number of collisions at index
                 collisionCount += probes;
                 return;
-            } else {
-                System.out.printf("Collision at index %d (probe %d)\n", index, probes);
             }
 
             probes++;
@@ -69,15 +66,23 @@ public class QuadraticProbing {
                 return;
             }
         }
-
-        System.out.printf("Table is full. Could not insert '%s'.\n", word);
+        System.out.println("Table is full. Couldn't insert: " + word);
     }
 
     public void printTable() {
-        System.out.println("\nQuadratic Probing Hash Table:");
+        System.out.println("\nQuadratic Probing:");
+        System.out.println("+-------------+----------------+---------------+---------------------+");
+        System.out.println("| Table Index |  Stored Word   | Original Hash | Collisions at Index |");
+        System.out.println("+-------------+----------------+---------------+---------------------+");
         for (int i = 0; i < tableSize; i++) {
-            System.out.printf("    Index %d: %s\n", i, occupied[i] ? hashTable[i] : "empty");
+            String word = (occupied[i]) ? hashTable[i] : "Empty";
+            String hashValue = (occupied[i]) ? String.valueOf(hash(word) % tableSize) : "0";
+            int collisions = (occupied[i]) ? collisionCounts[i] : 0; // assumes you have a collisionCounts[] array
+            if (!word.equals("Empty")) {
+                System.out.printf("| %11d | %14s | %13s | %19d |\n", i, word, hashValue, collisions);
+            }
         }
+        System.out.print("+-------------+----------------+---------------+---------------------+");
     }
 
     public void loadFromFile(String filename) {

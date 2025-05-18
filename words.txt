@@ -1,5 +1,35 @@
-apple
-banana
-cat dog elephant
-fish giraffe hat
-igloo jaguar
+hello world
+my name is ahmed dweib
+how are you ?
+ahmed
+Ahmed
+Ragab
+Ali
+Ahmed
+Ibrahim
+Hussein
+
+Ibrahim Mashhour Ahmed
+Ragab
+Ali
+Ahmed
+Ibrahim
+Hussein
+Ibrahim
+Mashhour
+Ahmed
+Ragab
+Ali
+Ahmed
+Ibrahim
+Hussein
+Ibrahim
+Mashhour
+Ahmed
+Ragab
+Ali
+Ahmed
+Ibrahim
+Hussein
+Ibrahim
+Mashhour

@@ -52,7 +52,7 @@ public class LinearHashing {
         collisionTimes.put(word, collisions);
 
         if (!inserted) {
-            System.out.println("The table is full ❌ or infinite loop occurred at word: " + word);
+            System.out.println("Table is full or infinite loop. Couldn't insert: " + word);
         }
     }
 
@@ -80,10 +80,7 @@ public class LinearHashing {
             String originalHash = "";
             int collisionsAtIndex = 0;
             if (word != null) {
-                // Calculate original hash for display
-                int hashValue = hash(word);
-                originalHash = String.valueOf(hashValue % size);
-                // Count how many collisions in this index 
+                originalHash = String.valueOf(hash(word) % size);
                 for (ArrayList<Integer> places : collisionPlaces.values()) {
                     for (int idx : places)
                         if (idx == i) collisionsAtIndex++;
@@ -92,7 +89,7 @@ public class LinearHashing {
             if(!Objects.equals(displayWord, "Empty"))
                 System.out.printf("| %11d | %14s | %13s | %19d |\n", i, displayWord, originalHash, collisionsAtIndex);
         }
-        System.out.println("+-------------+----------------+---------------+---------------------+");
+        System.out.print("+-------------+----------------+---------------+---------------------+");
     }
     
     public int getCollisionCount() {
